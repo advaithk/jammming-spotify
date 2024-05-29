@@ -1,30 +1,114 @@
-.search_area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100px;
-    padding: 50px 0;
-    background-image: url("../images/guitar.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #9542c5;
-  }
-  
-  .search_area input {
-    width: 50%;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .search_area button {
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    background-color: #371040;
-    color: white;
-    cursor: pointer;
-  }
+/* Search Area CSS */
+    .search_area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100px;
+        padding: 50px 0;
+        background-image: url("../images/guitar.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #9542c5;
+    }
+
+    .search_area input {
+        width: 30%;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .search_area button {
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        background-color: #371040;
+        color: white;
+        cursor: pointer;
+    }
+
+    .search_area button:hover {
+        background-color: #1DB954;
+    }
+/* Search Area CSS */
+
+
+/* Search Results CSS */
+    .result_playlist_area {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 40px;
+        background-color: #4b2064;
+    }
+
+    .search_results {
+        background-color: rgba(255, 255, 255, 0.5);
+        flex: 0.6;
+        margin-right: 40px;
+        padding: 20px;
+        border-radius: 5px;
+        min-height: 300px;
+        overflow: auto;
+    }
+
+    .playlist_area {
+        background-color: rgba(255, 255, 255, 0.5);
+        flex: 0.4;
+        padding: 20px;
+        border-radius: 5px;
+        min-height: 300px;
+        overflow: auto;
+    }
+
+    .song_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 95%;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .song_data {
+        flex: 0.9;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 10px;
+    }
+
+    .song_data hr {
+        border: 1px solid #ccc;
+        margin: 5px 0px;
+        width: 80%; 
+    }
+
+    .song_data h3 {
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    .song_button {
+        flex: 0.1;
+    }
+
+    .song_artist {
+        font-size: 0.95rem;
+    }
+
+
+
+
+
+
+
+/* Search Results CSS */

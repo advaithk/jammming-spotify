@@ -1,4 +1,3 @@
-import logo from './images/logo.svg';
 import './App.css';
 import SearchApp from './SearchApp/SearchApp';
 
@@ -6,11 +5,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>Ja<span>mmm</span>ing</h2>
+        <h1>Ja<span>mmm</span>ing</h1>
+        <h3>Search for music, find your jam!</h3>
       </header>
-      <SearchApp />
-
+      <body>
+        <SearchApp />
+      </body>
       <footer>This project uses the Spotify Web API</footer>
     </div>
   );
