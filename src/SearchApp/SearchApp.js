@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import './SearchApp.css';
 
 const sampleSearchResults = [
-    {id: 1, name: 'Song 1', artist: 'Artist 1', album: 'Album 1'},
-    {id: 2, name: 'Song 2', artist: 'Artist 2', album: 'Album 2'},
-    {id: 3, name: 'Song 3', artist: 'Artist 3', album: 'Album 3'},
-    {id: 4, name: 'Song 4', artist: 'Artist 4', album: 'Album 4'},
-    {id: 5, name: 'Song 5', artist: 'Artist 5', album: 'Album 5'},
-    {id: 5, name: 'Song 6', artist: 'Artist 6', album: 'Album 6'},
-    {id: 5, name: 'Song 7', artist: 'Artist 7', album: 'Album 7'},
-    {id: 5, name: 'Song 8', artist: 'Artist 8', album: 'Album 8'},
+    {id: 1, name: 'New Shoes', artist: 'Paolo Nutini', album: 'These Streets'},
+    {id: 2, name: 'Gold on the Ceiling', artist: 'Black Keys', album: 'El Camino'},
+    {id: 3, name: 'Flashed Junk Mind', artist: 'Milky Chance', album: 'Sadnecessary'},
+    {id: 4, name: 'My Type', artist: 'Saint Motel', album: 'My Type'},
+    {id: 5, name: 'Illusion', artist: 'Dua Lipa', album: 'Illusion'},
+    {id: 6, name: 'Lenely Nights', artist: 'LEISURE', album: 'Sunsetter'},
+    {id: 7, name: 'The Sun', artist: 'Myd', album: 'Born a Loser'},
+    {id: 8, name: 'Good Morning', artist: 'Kanye West', album: 'Graduation'},
 ]
 
 const SearchApp = () => {
@@ -23,7 +23,7 @@ const SearchApp = () => {
         try {
             setLoading(true);
 
-            setSearchResults([]);
+            setSearchResults([...sampleSearchResults]);
         } catch (error) {
             console.error('Error fetching search results: ', error);
         } finally {
@@ -40,6 +40,7 @@ const SearchApp = () => {
             />
             <ResultAndPlaylistArea 
                 searchResults={searchResults}
+                setSearchResults={setSearchResults}
                 loading={loading}
             />
         </div>
@@ -62,44 +63,54 @@ const SearchArea = ({searchText, setSearchText, handleSearch}) => {
     );
 }
 
-const ResultAndPlaylistArea = ({searchResults, loading}) => {
+const ResultAndPlaylistArea = ({searchResults, setSearchResults, loading}) => {
 
     const [playlist, setPlaylist] = useState([]);
+
+    const handleAdd = (songData) => {
+        setPlaylist([...playlist, songData]);
+        setSearchResults(searchResults.filter((song) => song.id !== songData.id));
+    }
+
+    const handleRemove = (songData) => {
+        setPlaylist(playlist.filter((song) => song.id !== songData.id));
+        setSearchResults([songData, ...searchResults]);
+    }
 
     return (
         <div className={"result_playlist_area"}>
             <SearchResultsArea 
                 searchResults={searchResults}
                 loading={loading}
-                setPlaylist={setPlaylist}
+                handleAdd={handleAdd}
             />
             <PlaylistArea 
                 playlist={playlist}
-                setPlaylist={setPlaylist}
+                handleRemove={handleRemove}
             />
         </div>
     )
 }
 
-const SearchResultsArea = ({searchResults, setPlaylist, loading}) => {
+const SearchResultsArea = ({searchResults, loading, handleAdd}) => {
     return (
         <div className={"search_results"}>
             <h2>Search Results</h2>
             <hr />
-            {sampleSearchResults.map((songData) => <SongItem key={songData.id} songData={songData} type="add" />)}
+            {searchResults.map((songData) => <SongItem key={`searchresults_${songData.id}`} songData={songData} type="add" handleAdd={handleAdd} />)}
         </div>
     )
 }
 
-const PlaylistArea = ({playlist}) => {
+const PlaylistArea = ({playlist, handleRemove}) => {
     return (
         <div className={"playlist_area"}>
-            {sampleSearchResults.map((songData) => <SongItem key={songData.id} songData={songData} type="remove" />)}
+            {playlist.map((songData) => <SongItem key={`playlist_${songData.id}`} songData={songData} type="remove" handleRemove={handleRemove} />)}
         </div>
     )
 }
 
-const SongItem = ({songData, type}) => {
+const SongItem = ({songData, type, handleAdd, handleRemove}) => {
     return (
         <div className={"song_container"}>
             <div className={"song_data"}>
@@ -107,7 +118,7 @@ const SongItem = ({songData, type}) => {
                 <hr />
                 <div className={"song_artist"}>{songData.artist} | {songData.album}</div>
             </div>
-            <button className={"song_button"} type="button" onClick={() => {}}>
+            <button className={"song_button"} type="button" onClick={() => type === "add" ? handleAdd(songData) : handleRemove(songData)}>
                 {type === "add" ? "+" : "-"}
             </button>
         </div>

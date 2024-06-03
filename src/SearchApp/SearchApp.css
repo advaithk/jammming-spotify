@@ -46,6 +46,8 @@
     }
 
     .search_results {
+        display: flex;
+        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.5);
         flex: 0.6;
         margin-right: 40px;
@@ -53,6 +55,19 @@
         border-radius: 5px;
         min-height: 300px;
         overflow: auto;
+    }
+
+    .search_results h2 {
+        padding: 0 0 0 10px;
+        margin: 10px 0;
+        text-align: left;
+        color: #fff;
+    }
+
+    .search_results hr {
+        border: 1px solid #ccc;
+        margin: 5px 0px;
+        width: 99%; 
     }
 
     .playlist_area {
@@ -69,7 +84,7 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        width: 95%;
+        width: 99%;
         margin: 10px;
         padding: 10px;
         border-radius: 5px;
@@ -98,7 +113,24 @@
     }
 
     .song_button {
-        flex: 0.1;
+        background-color: transparent;
+        border: 0.5px solid #686868;
+        border-radius: 50%; /* Circular shape */
+        color: #3b3b3b;
+        font-size: 18px; /* Font size */
+        width: 30px; /* Width of the button */
+        height: 30px; /* Height of the button */
+        cursor: pointer; /* Pointer cursor on hover */
+        display: flex; /* Flexbox for centering text */
+        align-items: center; /* Center text vertically */
+        justify-content: center; /* Center text horizontally */
+        padding: 0; /* Remove default padding */
+        transition: border-color 0.3s, color 0.2s; /* Smooth transition */
+    }
+    
+    .song_button:hover {
+        border-color: #007BFF; /* Change border color on hover */
+        color: #007BFF; /* Change text color on hover */
     }
 
     .song_artist {

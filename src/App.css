@@ -1,3 +1,8 @@
+body {
+    font-family: "Poppins", sans-serif;
+    padding-bottom: 25px;
+}
+
 .App {
     text-align: center;
 }
@@ -42,11 +47,6 @@ h3 {
     margin: 0 0 10px 0;
     font-weight: normal;
     letter-spacing: 0.5px;
-}
-
-body {
-    font-family: "Poppins", sans-serif;
-    padding-bottom: 50px;
 }
 
 .App-link {
