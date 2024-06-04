@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
 import './SearchApp.css';
 
-const sampleSearchResults = [
-    {id: 1, name: 'New Shoes', artist: 'Paolo Nutini', album: 'These Streets'},
-    {id: 2, name: 'Gold on the Ceiling', artist: 'Black Keys', album: 'El Camino'},
-    {id: 3, name: 'Flashed Junk Mind', artist: 'Milky Chance', album: 'Sadnecessary'},
-    {id: 4, name: 'My Type', artist: 'Saint Motel', album: 'My Type'},
-    {id: 5, name: 'Illusion', artist: 'Dua Lipa', album: 'Illusion'},
-    {id: 6, name: 'Lenely Nights', artist: 'LEISURE', album: 'Sunsetter'},
-    {id: 7, name: 'The Sun', artist: 'Myd', album: 'Born a Loser'},
-    {id: 8, name: 'Good Morning', artist: 'Kanye West', album: 'Graduation'},
-]
-
 const SearchApp = () => {
 
     const [searchText, setSearchText] = useState('');
@@ -23,13 +12,63 @@ const SearchApp = () => {
         try {
             setLoading(true);
 
-            setSearchResults([...sampleSearchResults]);
+            // const token = await authorizeSpotify();
+
+            const myHeaders = new Headers();
+            myHeaders.append("Authorization", "BQD4pbPWyKZ3isspbgsKMVxQLfFatb_sAlTgW7O21yRCZbbHPxj9csSqygpU3mODV98zidpT1fqCaMGA2t9_P5zsla6QTfmkaeESjbRsSzEu1znagFE");
+
+            const requestOptions = {
+                method: "GET",
+                headers: myHeaders,
+                redirect: "follow"
+            };
+
+            const response = await fetch(`https://api.spotify.com/v1/search?q=${searchText}&type=track&limit=10`, requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
+            
+            const data = await response.json();
+            const tracks = data.tracks.items.map((track) => {
+                return {
+                    id: track.id,
+                    name: track.name,
+                    artist: track.artists[0].name,
+                    album: track.album.name,
+                };
+            })
+            setSearchResults([...tracks]);
         } catch (error) {
             console.error('Error fetching search results: ', error);
         } finally {
             setLoading(false);
         }
     };
+
+    const authorizeSpotify = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        myHeaders.append("Cookie", "__Host-device_id=AQCKwWTKDJHdvYP69rdFkA-7E8OlDi234x7ZZs8wfyuOBRY5EK9qVUOwfHs-VC6RzKhzXSLFSTGy8duzfQUdZSZievCjornL7-g; sp_tr=false");
+
+        const urlencoded = new URLSearchParams();
+        urlencoded.append("grant_type", "client_credentials");
+        urlencoded.append("client_id", "624be565b6964802ad1354c478898c64");
+        urlencoded.append("client_secret", "bf2799a091514410a5de7ce04fdb5008");
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: "follow"
+        };
+
+        const token = await fetch("https://accounts.spotify.com/api/token", requestOptions)
+            .then((response) => {return response.text()})
+            .then((result) => console.log(result))
+            .catch((error) => console.error(error));
+
+        return token;
+    }
 
     return (
         <div>
