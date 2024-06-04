@@ -97,7 +97,7 @@
         padding-left: 10px;
     }
 
-    .playlist_area button {
+    .playlist_area .save_button {
         padding: 15px 30px;
         border: 0.1px solid black;
         border-radius: 5px;
@@ -106,7 +106,7 @@
         cursor: pointer;
     }
 
-    .playlist_area button:hover {
+    .playlist_area .save_button:hover {
         background-color: #0f5f2b;
     }
 
@@ -160,9 +160,12 @@
         transition: border-color 0.1s, color 0.1s; /* Smooth transition */
     }
     
-    .song_button:hover {
-        border-color: #007BFF;      /* Change border color on hover */
-        color: #007BFF;             /* Change text color on hover */
+    .add_button:hover {
+        background-color: #77d16f; 
+    }
+
+    .remove_button:hover {
+        background-color: #d16f6f; 
     }
 
     .song_details {

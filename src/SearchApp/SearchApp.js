@@ -210,7 +210,7 @@ const PlaylistArea = ({playlist, handleRemove, playlistName, setPlaylistName, sa
             <div className={"playlist_tracks"}>
                 {playlist?.map((songData) => <SongItem key={`playlist_${songData.id}`} songData={songData} type="remove" handleRemove={handleRemove} />)}
             </div>
-            <button type="button" onClick={() => {savePlaylistToSpotify()}}>
+            <button className={"save_button"} type="button" onClick={() => {savePlaylistToSpotify()}}>
                 Save to Spotify
             </button>
         </div>
@@ -226,7 +226,10 @@ const SongItem = ({songData, type, handleAdd, handleRemove}) => {
                 <div className={"song_details"}>Artist: <span>{songData.artist}</span></div>
                 <div className={"song_details"}>Album: <span>{songData.album}</span></div>
             </div>
-            <button className={"song_button"} type="button" onClick={() => type === "add" ? handleAdd(songData) : handleRemove(songData)}>
+            <button 
+                className={(type === "add" ? "add_button" : "remove_button") + " song_button"} 
+                type="button" onClick={() => type === "add" ? handleAdd(songData) : handleRemove(songData)}
+            >
                 {type === "add" ? "+" : "-"}
             </button>
         </div>
