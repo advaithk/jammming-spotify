@@ -36,7 +36,7 @@
 /* Search Area CSS */
 
 
-/* Search Results CSS */
+/* Result & Playlist Area CSS */
     .result_playlist_area {
         display: flex;
         flex-wrap: wrap;
@@ -54,7 +54,7 @@
         padding: 20px;
         border-radius: 5px;
         min-height: 300px;
-        overflow: auto;
+        overflow: none;
     }
 
     .search_results h2 {
@@ -76,7 +76,38 @@
         padding: 20px;
         border-radius: 5px;
         min-height: 300px;
-        overflow: auto;
+        overflow: none;
+    }
+
+    .playlist_area .playlist_tracks {
+        margin-bottom: 20px;
+    }
+
+    .playlist_area input {
+        background-color: transparent;
+        border: none;
+        outline: none;          /* Prevents border on focus */
+        box-shadow: none;       /* Prevents shadow on focus in some browsers */
+        padding: 0;             /* Optional: removes any default padding */
+        margin: 0;              /* Optional: removes any default margin */
+        width: 100%;            /* Optional: makes the input take full width of the container */
+        color: inherit;         /* Ensures the text color matches the parent container */
+        font-size: 1.55rem;
+        height: 40px;
+        padding-left: 10px;
+    }
+
+    .playlist_area button {
+        padding: 15px 30px;
+        border: 0.1px solid black;
+        border-radius: 5px;
+        background-color: #1DB954;
+        color: white;
+        cursor: pointer;
+    }
+
+    .playlist_area button:hover {
+        background-color: #0f5f2b;
     }
 
     .song_container {
@@ -110,30 +141,52 @@
         font-size: 1rem;
         padding: 0;
         margin: 0;
+        font-weight: 700;
     }
 
     .song_button {
         background-color: transparent;
         border: 0.5px solid #686868;
-        border-radius: 50%; /* Circular shape */
+        border-radius: 50%;         /* Circular shape */
         color: #3b3b3b;
-        font-size: 18px; /* Font size */
-        width: 30px; /* Width of the button */
-        height: 30px; /* Height of the button */
-        cursor: pointer; /* Pointer cursor on hover */
-        display: flex; /* Flexbox for centering text */
-        align-items: center; /* Center text vertically */
-        justify-content: center; /* Center text horizontally */
-        padding: 0; /* Remove default padding */
-        transition: border-color 0.3s, color 0.2s; /* Smooth transition */
+        font-size: 18px;            /* Font size */
+        width: 30px;                /* Width of the button */
+        height: 30px;               /* Height of the button */
+        cursor: pointer;            /* Pointer cursor on hover */
+        display: flex;              /* Flexbox for centering text */
+        align-items: center;        /* Center text vertically */
+        justify-content: center;    /* Center text horizontally */
+        padding: 0;                 /* Remove default padding */
+        transition: border-color 0.1s, color 0.1s; /* Smooth transition */
     }
     
     .song_button:hover {
-        border-color: #007BFF; /* Change border color on hover */
-        color: #007BFF; /* Change text color on hover */
+        border-color: #007BFF;      /* Change border color on hover */
+        color: #007BFF;             /* Change text color on hover */
     }
 
-    .song_artist {
+    .song_details {
         font-size: 0.95rem;
     }
-/* Search Results CSS */
+
+    .song_details span {
+        font-style: italic;
+    }
+
+    .loading-spinner {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(195, 195, 195, 0.6);
+        border-radius: 50%;
+        border-top-color: #636767;
+        animation: spin 1s ease-in-out infinite;
+        align-self: center;
+    }
+    
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+/* Result & Playlist Area CSS */
