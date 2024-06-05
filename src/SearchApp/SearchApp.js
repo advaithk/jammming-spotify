@@ -52,40 +52,42 @@ const SearchApp = () => {
     };
 
     const searchSpotify = async () => {
-        if (!accessToken) {
-            console.error('No access token available');
-            getSpotifyAuthorizeURL();
-        }
-        try {
-            setLoading(true);
-            const myHeaders = new Headers();
-            myHeaders.append("Authorization", `Bearer ${accessToken}`);
-            const requestOptions = {
-                method: "GET",
-                headers: myHeaders,
-                redirect: "follow"
-            };
-            const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=track&limit=10`, requestOptions);
-            if (!response.ok) {
-                console.error('HTTP error: ', response.status);
-                const errorText = await response.text();
-                console.error('Error response: ', errorText);
-                throw new Error(`HTTP error! status: ${response.status}`);
+        if(searchText.trim() !== '') {
+            if (!accessToken) {
+                console.log('No access token available');
+                getSpotifyAuthorizeURL();
             }
-            const data = await response.json();
-            const tracks = data.tracks.items.map((track) => {
-                return {
-                    id: track.id,
-                    name: track.name,
-                    artist: track.artists[0].name,
-                    album: track.album.name,
+            try {
+                setLoading(true);
+                const myHeaders = new Headers();
+                myHeaders.append("Authorization", `Bearer ${accessToken}`);
+                const requestOptions = {
+                    method: "GET",
+                    headers: myHeaders,
+                    redirect: "follow"
                 };
-            });
-            setSearchResults([...tracks]);
-        } catch (error) {
-            console.error('Error fetching search results: ', error);
-        } finally {
-            setLoading(false);
+                const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=track&limit=10`, requestOptions);
+                if (!response.ok) {
+                    console.error('HTTP error: ', response.status);
+                    const errorText = await response.text();
+                    console.error('Error response: ', errorText);
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                const tracks = data.tracks.items.map((track) => {
+                    return {
+                        id: track.id,
+                        name: track.name,
+                        artist: track.artists[0].name,
+                        album: track.album.name,
+                    };
+                });
+                setSearchResults([...tracks]);
+            } catch (error) {
+                console.error('Error fetching search results: ', error);
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -121,7 +123,7 @@ const SearchArea = ({searchText, setSearchText, handleSearch}) => {
                 }}
             />
             <button type="button" onClick={handleSearch}>
-                Search on <b>Spotify</b>
+                Search on Spotify
             </button>
         </div>
     );
